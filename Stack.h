@@ -1,6 +1,6 @@
 class Stack {
 public:
-    Stack( int s = 10 );    // default constructor (stack size 10)
+    Stack( int s = 10 ); // default constructor (stack size 10)
     // destructor
     ~Stack(){delete[] ptr;}
     void push( int v ); // push an element onto the stack
@@ -11,13 +11,13 @@ protected:
     // determine whether Stack is full
     bool isFull();
 private:
-    int size;   // # of elements in the stack
+    int size; // # of elements in the stack
     int top; // location of the top element
     int *ptr; // pointer to the stack
 }; // end class Stack
 
 Stack::Stack( int s ) {
-    size = s > 0 ? s: 10;
+    size = s > 0 ? s : 10;
     top = -1;
     ptr = new int[ size ];
 }
