@@ -3,7 +3,7 @@ import java.io.*;
 
 public class ReadFileData {
 
-	public static void main(String[] args) {
+	static StringBuffer toReadFileData() {
 		int b = 0;
 		StringBuffer buffer = new StringBuffer();
 		FileInputStream file = null;
@@ -14,7 +14,6 @@ public class ReadFileData {
 				buffer.append((char)b);
 				b = file.read();
 			}
-			System.out.println(buffer);
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("Oops: FileNotFoundException");
@@ -22,5 +21,6 @@ public class ReadFileData {
 		catch (IOException e) {
 			System.out.println("Input error");
 		}
+		return buffer;
 	}
 }
