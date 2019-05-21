@@ -22,7 +22,9 @@ public class Token {
 		}
 		StringTokenizer ntoken = new StringTokenizer(line, " ");
 		while (ntoken.hasMoreTokens()) {
-			list.add(ntoken.nextToken());
+			String token = ntoken.nextToken();
+			if ((token == "//")||(token == "\n")) break;
+			list.add(token);
 		}
 		return list;
 	}
