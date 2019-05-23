@@ -15,14 +15,16 @@ public class Parsing {
 		while(line != null) {
 			BringToken();
 			
-			String classname;
+			ClassInfo arrayofclass[];
+			int classcnt = 0;
 			int loc = FindWord("class");
 			if (loc != -1) {
-				classname = line.get(loc + 1);
-				System.out.println(classname);
+				arrayofclass[classcnt] = new ClassInfo(line.get(loc + 1));
+				ClassParsing();
 			}
-			//System.out.println(line);
+			
 		}
+		
 	}
 	
 	void BringToken() {
@@ -35,7 +37,7 @@ public class Parsing {
 		int loc = -1;
 		while (true) {
 			try {
-				if (line.get(loc + 1).equals(w)) {
+				if (line.get(loc + 1).matches(".*"+ w + ".*")) {
 					loc += 1;
 					return loc;
 				}
@@ -48,7 +50,12 @@ public class Parsing {
 			}
 			loc += 1;
 		}
-		
 		return -1;
+	}
+	
+	void ClassParsing () {
+		BringToken();
+		int bracecnt = -1;
+		
 	}
 }
