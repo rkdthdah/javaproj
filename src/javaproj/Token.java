@@ -2,11 +2,12 @@ package javaproj;
 import java.util.*;
 
 public class Token {
-	String str;
-	StringTokenizer linetoken;
+	private String str;
+	private StringTokenizer linetoken;
 	
 	Token () {
-		StringBuffer buffer = ReadFileData.toReadFileData();
+		ReadFileData r = new ReadFileData();
+		StringBuffer buffer = r.toReadFileData();
 		str = buffer.toString();
 		linetoken = new StringTokenizer(str, "\n");
 	}
@@ -23,7 +24,7 @@ public class Token {
 		StringTokenizer ntoken = new StringTokenizer(line, " ");
 		while (ntoken.hasMoreTokens()) {
 			String token = ntoken.nextToken();
-			if ((token == "//")||(token == "\n")) break;
+			if (token.matches(".*//.*")) return list;
 			list.add(token);
 		}
 		return list;

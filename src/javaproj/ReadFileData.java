@@ -3,7 +3,7 @@ import java.io.*;
 
 public class ReadFileData {
 
-	static StringBuffer toReadFileData() {
+	StringBuffer toReadFileData() {
 		int b = 0;
 		StringBuffer buffer = new StringBuffer();
 		FileInputStream file = null;
