@@ -1,7 +1,7 @@
 package javaproj;
 
 public class CommonInfo {
-	protected String name, type, access; // 이름, 반환형/자료형, 접근권한
+	String name, type, access; // 이름, 반환형/자료형, 접근권한
 	
 	public CommonInfo(String name, String type, String access) {
 		this.name = name;

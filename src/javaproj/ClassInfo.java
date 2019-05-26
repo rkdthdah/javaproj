@@ -2,7 +2,7 @@ package javaproj;
 import java.util.*;
 
 public class ClassInfo {
-	private String name; // 클래스 이름
+	String name; // 클래스 이름
 	private ArrayList<MethodInfo> method; // 메소드
 	private ArrayList<VariableInfo> variable; // 변수
 	
