@@ -6,9 +6,16 @@ public class ClassInfo {
 	private ArrayList<MethodInfo> method; // 메소드
 	private ArrayList<VariableInfo> variable; // 변수
 	
-	public ClassInfo(ArrayList<MethodInfo> method, ArrayList<VariableInfo> variable) {
-		this.method = method;
-		this.variable = variable;
+	public ClassInfo(String name) {
+		this.name = name;
+	}
+	
+	public void setMethod(MethodInfo method) {
+		this.method.add(method);
+	}
+	
+	public void setVariable(VariableInfo variable) {
+		this.variable.add(variable);
 	}
 
 	
