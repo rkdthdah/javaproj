@@ -7,10 +7,6 @@ public class VariableInfo extends CommonInfo {
 		super(name, type, access);
 	}
 	
-	public VariableInfo(String name, String access) {
-		super(name, access);
-	}
-	
 	public void setMethod(MethodInfo method) {
 		this.method = method;
 	}

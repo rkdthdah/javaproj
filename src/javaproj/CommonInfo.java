@@ -9,12 +9,6 @@ public class CommonInfo {
 		this.access = access;
 	}
 	
-	public CommonInfo(String name, String access) {
-		this.name = name;
-		this.type = "void";
-		this.access = access;
-	}
-	
 	public String getName() {
 		return name;
 	}

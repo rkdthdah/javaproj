@@ -8,10 +8,6 @@ public class MethodInfo extends CommonInfo {
 		super(name, type, access);
 	}
 	
-	public MethodInfo(String name, String access) {
-		super(name, access);
-	}
-	
 	public void setCode(String code) {
 		this.code = code;
 	}
