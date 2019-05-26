@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Parsing {
 	private Token t;
 	private ArrayList<String> line;
+	ClassInfo classinfo[] = new ClassInfo[5];
+	int classcnt = 0;
 	private int strloc = 0;
 	private int bracecnt = -1;
 	int a = 0;
@@ -17,14 +19,12 @@ public class Parsing {
 	void ParsingLine(){
 		while(line != null) {
 			BringToken();
-			
-			ClassInfo classinfo[] = new ClassInfo[5];
-			int classcnt = 0;
+
 			int loc = FindWord("class");
 			if (loc != -1) {
 				classinfo[classcnt] = new ClassInfo(line.get(loc + 1));
 				classcnt += 1;
-				System.out.println(classinfo[0].name);
+				//System.out.println(classinfo[0].name);
 				ClassParsing();
 				continue;
 			}
@@ -35,7 +35,7 @@ public class Parsing {
 		if (line != null) {
 			line = t.Tokenizer();
 		}
-		System.out.println(line);
+		//System.out.println(line);
 	}
 	
 	int FindWord(String w) {
@@ -82,7 +82,7 @@ public class Parsing {
 			int accessloc = FindWord(":");
 			if (accessloc != -1) {
 				access = line.get(accessloc).substring(0, strloc);
-				System.out.println("access: " + access);
+				//System.out.println("access: " + access);
 			}
 			
 			int methodopen = FindWord("(");
@@ -107,19 +107,20 @@ public class Parsing {
 				
 				int methodclose = FindWord(")");
 				int factorloc = FindWord("int");
-				System.out.println(methodopen +" "+ methodclose);
+				//System.out.println(methodopen +" "+ methodclose);
 				if ((methodopen <= factorloc)&&(factorloc <= methodclose)&&(factorloc != -1)) {
 					factor = line.get(factorloc);
 					activefactor = false;
-					System.out.println(activefactor);
+					//System.out.println(activefactor);
 				}
 				arrayofmethod[methodcnt] = new MethodInfo(methodname, methodtype, access);
 				arrayofmethod[methodcnt].setFactor(factor);
-				System.out.println("methodcnt: " + methodcnt);
-				System.out.println(arrayofmethod[methodcnt].name);
-				System.out.println(arrayofmethod[methodcnt].type);
-				System.out.println(arrayofmethod[methodcnt].access);
-				System.out.println(arrayofmethod[methodcnt].factor);
+				classinfo[classcnt - 1].setMethod(arrayofmethod[methodcnt]);
+				//System.out.println("methodcnt: " + methodcnt);
+				//System.out.println(arrayofmethod[methodcnt].name);
+				//System.out.println(arrayofmethod[methodcnt].type);
+				//System.out.println(arrayofmethod[methodcnt].access);
+				//System.out.println(arrayofmethod[methodcnt].factor);
 				methodcnt += 1;
 			}
 			
@@ -127,10 +128,11 @@ public class Parsing {
 				int loc = FindWord("int");
 				if (loc != -1) {
 					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc + 1), "int", access);
-					System.out.println("variablecnt: " + variablecnt);
-					System.out.println(arrayofvariable[variablecnt].name);
-					System.out.println(arrayofvariable[variablecnt].type);
-					System.out.println(arrayofvariable[variablecnt].access);
+					classinfo[classcnt - 1].setVariable(arrayofvariable[variablecnt]);
+					//System.out.println("variablecnt: " + variablecnt);
+					//System.out.println(arrayofvariable[variablecnt].name);
+					//System.out.println(arrayofvariable[variablecnt].type);
+					//System.out.println(arrayofvariable[variablecnt].access);
 					variablecnt += 1;
 				}
 				
@@ -138,10 +140,10 @@ public class Parsing {
 				if (loc != -1) {
 					variablecnt -= 1;
 					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc).substring(strloc + 1), "int *", access);
-					System.out.println("variablecnt: " + variablecnt);
-					System.out.println(arrayofvariable[variablecnt].name);
-					System.out.println(arrayofvariable[variablecnt].type);
-					System.out.println(arrayofvariable[variablecnt].access);
+					//System.out.println("variablecnt: " + variablecnt);
+					//System.out.println(arrayofvariable[variablecnt].name);
+					//System.out.println(arrayofvariable[variablecnt].type);
+					//System.out.println(arrayofvariable[variablecnt].access);
 					variablecnt += 1;
 				}
 			}
