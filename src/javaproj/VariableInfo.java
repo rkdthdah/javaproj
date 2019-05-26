@@ -12,6 +12,13 @@ public class VariableInfo extends CommonInfo {
 	public void setMethod(MethodInfo method) {
 		this.method.add(method);
 	}
+	
+	public void printall() {
+		System.out.println(name);
+		System.out.println(type);
+		System.out.println(access);
+		System.out.println(method);
+	}
 
 	
 

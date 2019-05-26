@@ -5,11 +5,19 @@ import java.util.ArrayList;
 public class Parsing {
 	private Token t;
 	private ArrayList<String> line;
+	
 	ClassInfo classinfo[] = new ClassInfo[5];
 	int classcnt = 0;
+	
 	private int strloc = 0;
 	private int bracecnt = -1;
 	int a = 0;
+	
+	MethodInfo arrayofmethod[] = new MethodInfo[10];
+	int methodcnt = 0;
+	
+	VariableInfo arrayofvariable[] = new VariableInfo[10];
+	int variablecnt = 0;
 	
 	Parsing(){
 		t = new Token();
@@ -29,6 +37,20 @@ public class Parsing {
 				continue;
 			}
 		}
+		/*
+		classinfo[0].printall();
+		System.out.println();
+		for (int i = 0; i < methodcnt; i++) {
+			arrayofmethod[i].printall();
+			System.out.println();
+		}
+		System.out.println();
+		for (int i = 0; i < variablecnt; i++) {
+			arrayofvariable[i].printall();
+			System.out.println();
+		}
+		System.out.println();
+		*/
 	}
 	
 	void BringToken() {
@@ -62,15 +84,9 @@ public class Parsing {
 	}
 	
 	void ClassParsing () {
-		System.out.println("cp");
+		//System.out.println("cp");
 		
 		String access = null;
-		
-		MethodInfo arrayofmethod[] = new MethodInfo[10];
-		int methodcnt = 0;
-		
-		VariableInfo arrayofvariable[] = new VariableInfo[10];
-		int variablecnt = 0;
 		
 		while (true) {
 			if (FindWord("{") != -1) {
@@ -94,6 +110,7 @@ public class Parsing {
 			boolean activefactor = true;
 			
 			if (methodopen != -1) {
+				activefactor = false;
 				methodname = line.get(methodopen).substring(0, methodop);
 				try {
 					methodtype = line.get(methodopen - 1);

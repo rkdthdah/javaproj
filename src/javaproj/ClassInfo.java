@@ -17,6 +17,12 @@ public class ClassInfo {
 	public void setVariable(VariableInfo variable) {
 		this.variable.add(variable);
 	}
+	
+	public void printall() {
+		System.out.println(name);
+		System.out.println(method);
+		System.out.println(variable);
+	}
 
 	
 
