@@ -1,6 +1,7 @@
 package javaproj;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Parsing {
 	private Token t;
@@ -63,7 +64,7 @@ public class Parsing {
 		if (line != null) {
 			line = t.Tokenizer();
 		}
-		System.out.println(line);
+		//System.out.println(line);
 	}
 	
 	int FindWord(String w) {
@@ -94,19 +95,19 @@ public class Parsing {
 		for (i = 0; i < methodcnt; i++) {
 			if (name.equals(arrayofmethod[i].getName())) break;
 		}
-		System.out.println("methodname: " + name + "  " + "methodloc: " + i);
+		//System.out.println("methodname: " + name + "  " + "methodloc: " + i);
 		return i;
 	}
 	
 	void FindVariable(String code, int loc) {
-		System.out.println("variable found");
+		//System.out.println("variable found" + code);
 		int i;
 		for (i = 0; i < variablecnt; i++) {
 			String target = arrayofvariable[i].getName();
 			if (code.indexOf(target) != -1) {
-				System.out.println("variable found: " + target);
-				System.out.println(loc + " " + i);
-				System.out.println(arrayofmethod[loc] + " " + arrayofvariable[i]);
+				//System.out.println("variable found: " + target);
+				//System.out.println(loc + " " + i);
+				//System.out.println(arrayofmethod[loc] + " " + arrayofvariable[i]);
 				arrayofmethod[loc].setVariable(arrayofvariable[i]);
 				arrayofvariable[i].setMethod(arrayofmethod[loc]);
 			}
@@ -122,7 +123,7 @@ public class Parsing {
 	}
 	
 	void CodeMaking(int openloc, int oploc, int closeloc, int clsloc) {
-		System.out.println("openloc: " + openloc + "  " + "oploc: " + oploc + "  " + "closeloc: " + closeloc + "  " + "clsloc: " + clsloc);
+		//System.out.println("openloc: " + openloc + "  " + "oploc: " + oploc + "  " + "closeloc: " + closeloc + "  " + "clsloc: " + clsloc);
 		try {
 			if ((openloc == closeloc)&&(openloc != -1)) {
 				code = line.get(openloc).substring(oploc + 1, clsloc);
@@ -151,6 +152,8 @@ public class Parsing {
 		//System.out.println("cp");
 		
 		String access = null;
+		Stack<Integer> leftmethodloc = new Stack<Integer>();
+		Stack<String> leftmethodcode = new Stack<String>();
 		
 		while (true) {
 			if (FindWord("{") != -1) {
@@ -195,7 +198,14 @@ public class Parsing {
 				}
 				arrayofmethod[methodcnt] = new MethodInfo(methodname, methodtype, access);
 				if (bracecnt >= 1) {
-					//MethodParsing(arrayofmethod[methodcnt].getName());
+					int startloc = FindWord("{");
+					int sloc = strloc;
+					int closeloc = FindWord("}");
+					int cloc = strloc;
+					CodeMaking(startloc, sloc, closeloc, cloc);
+					arrayofmethod[methodcnt].setCode(code);
+					leftmethodloc.push(methodcnt);
+					leftmethodcode.push(code);
 					}
 				arrayofmethod[methodcnt].setFactor(factor);
 				classinfo[classcnt - 1].setMethod(arrayofmethod[methodcnt]);
@@ -238,12 +248,16 @@ public class Parsing {
 			}
 			BringToken();
 		}
+		while (true) {
+			if (leftmethodloc.isEmpty()) break;
+			FindVariable(leftmethodcode.pop(), leftmethodloc.pop());
+		}
 		
 	}
 
 		
 	void MethodParsing() {
-		System.out.println("methodparsing");
+		//System.out.println("methodparsing");
 		int bracecnt = -1;
 		int methodloc = 20;
 		while (true) {
@@ -253,7 +267,7 @@ public class Parsing {
 			if ((openloc != -1)) {
 				bracecnt += 1;
 				oploc = strloc;
-				System.out.println("bracecnt: " + bracecnt);
+				//System.out.println("bracecnt: " + bracecnt);
 			}
 			
 			boolean notyet = false;			
@@ -263,9 +277,9 @@ public class Parsing {
 			if ((closeloc != -1)) {
 				bracecnt -= 1;
 				clsloc = strloc;
-				System.out.println(notyet);
+				//System.out.println(notyet);
 				notyet = true;
-				System.out.println("bracecnt: " + bracecnt);
+				//System.out.println("bracecnt: " + bracecnt);
 			}
 			
 			String name = null;
@@ -287,10 +301,10 @@ public class Parsing {
 				methodloc = SearchMethodName(name);
 			}
 			
-			System.out.println(bracecnt);
+			//System.out.println(bracecnt);
 			
 			if ((bracecnt != -1)&&notyet) {
-				System.out.println("notyet");
+				//System.out.println("notyet");
 				CodeFor(0, closeloc);
 				code = code + line.get(closeloc);
 			}
@@ -303,15 +317,15 @@ public class Parsing {
 			
 			
 			if (bracecnt == -1) {
-				System.out.println("methodloc: " + methodloc);
+				//System.out.println("methodloc: " + methodloc);
 				arrayofmethod[methodloc].setCode(code);
 				FindVariable(code, methodloc);
-				System.out.println(code);
+				//System.out.println(code);
 				break;
 			}
 			
 			BringToken();
 		}
-		System.out.println("end :)");
+		//System.out.println("end :)");
 	}
 }
