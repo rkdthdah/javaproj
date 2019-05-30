@@ -19,7 +19,11 @@ public class VariableInfo extends CommonInfo {
 		System.out.println(access);
 		System.out.println(method);
 	}
-
+	
+	// TreeModel에서 이용 + public display()
+	public String toString() {
+		return name;
+	}
 	
 
 }

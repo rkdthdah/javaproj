@@ -6,19 +6,20 @@ import javax.swing.*;
 
 public class ViewerWindow extends JFrame {
 	
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JMenuItem open, save, exit;
+	
 	
 	ViewerWindow() {
 		setTitle("C++ Å¬·¡½º Viewer");
-		setSize(1200,800);
+		setSize(900,700);
 		createMenu();
 		
 		setVisible(true);
 	}
 	
 	void createMenu() {
-		JMenuBar menuBar;
-		JMenu menu;
-		JMenuItem open, save, exit;
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
@@ -40,15 +41,13 @@ public class ViewerWindow extends JFrame {
 		menuBar.add(menu);
 		
 		setJMenuBar(menuBar);
-	
-	
 	}
 	
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ViewerWindow f = new ViewerWindow();
+		new ViewerWindow();
 
 	}
 

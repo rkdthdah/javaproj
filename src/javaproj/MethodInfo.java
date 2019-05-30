@@ -22,6 +22,7 @@ public class MethodInfo extends CommonInfo {
 		this.variable.add(variable);
 	}
 	
+	
 	public void printall() {
 		System.out.println(name);
 		System.out.println(type);
@@ -31,6 +32,9 @@ public class MethodInfo extends CommonInfo {
 		System.out.println(variable);
 	}
 
-	
+	// TreeModel에서 이용 + public display()
+	public String toString() {
+		return name;
+	} 
 
 }
