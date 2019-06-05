@@ -73,7 +73,7 @@ public class TreeWindow extends JSplitPane{
 	
 	public TreeWindow() {
 		super(HORIZONTAL_SPLIT);
-		ClassInfo c = (ClassInfo) Parsing.getClassInfo();
+		ClassInfo c = (ClassInfo) Main.t.getClassInfo(); 
 		ClassTreeModel model = new ClassTreeModel(c);
 		tree = new JTree(model);
 		
