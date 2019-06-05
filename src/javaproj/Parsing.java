@@ -27,6 +27,14 @@ public class Parsing {
 		line = new ArrayList<String>();
 	}
 	
+	public ClassInfo getClassInfo() {
+		if (classcnt <= 0) {
+			classcnt -= 1;
+			return classinfo[classcnt];
+		}
+		return null;
+	}
+	
 	// 메인 함수: class Token에서 null을 반환할 때 까지 반복 - class 부분을 먼저 파싱한 후, method 정보 부분을 파싱
 	void ParsingLine(){
 		while(line != null) {
