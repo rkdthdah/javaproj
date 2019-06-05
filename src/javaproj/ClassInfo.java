@@ -30,6 +30,25 @@ public class ClassInfo {
 		return name;
 	} 
 	
+	public ArrayList<Object> info() {
+		ArrayList<Object> o = new ArrayList<Object>();
+		for(int i=0; i<method.size(); i++) {
+			o.add(method.get(i));
+		}
+		for(int i=0; i<variable.size(); i++) {
+			o.add(variable.get(i));
+		}
+		return o;
+	}
+	
+	public Object getInfo(int index) {
+		return info().get(index);
+	}
+	
+	public int sizeInfo() {
+		return info().size();
+	}
+	
 	public MethodInfo getMethod(int index) {
 		return method.get(index);
 	}
@@ -55,7 +74,7 @@ public class ClassInfo {
 		return -1;
 	}
 	
-	public int getIndexOfMethod(VariableInfo v) {
+	public int getIndexOfVariable(VariableInfo v) {
 		for(int i=0 ; i<variable.size() ; i++) {
 			VariableInfo vi = variable.get(i);
 			if(vi == v)
