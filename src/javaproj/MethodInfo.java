@@ -52,9 +52,9 @@ public class MethodInfo extends CommonInfo {
 	// CardMethodUse에서 사용
 	
 	public String getUse() {
-		String use = "";
+		String use = "  ";
 		for(int i=0; i<variable.size(); i++) {
-			use += variable.get(i).getName() + "\r";
+			use += variable.get(i).getName() + "\n  ";
 		}
 		
 		return use;

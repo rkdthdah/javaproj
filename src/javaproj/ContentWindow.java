@@ -52,7 +52,7 @@ public class ContentWindow extends JPanel{
 	private CardLayout card = new CardLayout();
 	private CardClass c;
 	private CardMethod m;
-	public CardMethodUse u;
+	//private CardMethodUse u;
 	private CardVariable v;
 	
 	public ContentWindow() {
@@ -90,7 +90,7 @@ public class ContentWindow extends JPanel{
 		}
 		else if (o instanceof MethodInfo) {
 			m = new CardMethod((MethodInfo)o);
-			u = new CardMethodUse((MethodInfo)o);
+			//u = new CardMethodUse((MethodInfo)o);
 			//System.out.println("showCardMethod");
 			add(m, "CardMethod");
 			card.show(this, "CardMethod");
@@ -102,6 +102,11 @@ public class ContentWindow extends JPanel{
 			card.show(this, "CardVariable");
 		}
 	}
+	/*
+	public CardMethodUse getCardMethodUse() {
+		return u;
+	}
+	*/
 	
 }
 
@@ -257,20 +262,23 @@ class CardMethod extends JPanel {
 	}
 }
 
-//
+/*
 class CardMethodUse extends JPanel {
 	private MethodInfo methodinfo;
 	private JTextArea field;
+	private JScrollPane scroll;
 	
 	public CardMethodUse (MethodInfo m) {
 		methodinfo = m;
-		field = new JTextArea(30,30);
+		field = new JTextArea();
 		field.append(methodinfo.getUse());
-		//System.out.println(methodinfo.getUse());
-		field.setPreferredSize(new Dimension(200,200));
+		scroll = new JScrollPane(field);
+		System.out.println(methodinfo.getUse());
+		scroll.setPreferredSize(new Dimension(150,150));
 		this.add(field);
 	}
 }
+*/
 
 class CardVariable extends JPanel {
 	private VariableInfo variableinfo;

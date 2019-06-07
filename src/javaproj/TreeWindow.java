@@ -65,6 +65,7 @@ public class TreeWindow extends JPanel{
 	protected JScrollPane scroll;
 	protected ViewerWindow viewerwindow = Main.window;
 	protected ContentWindow contentwindow = viewerwindow.contentPanel;
+	protected UseWindow usewindow = viewerwindow.use;
 	
 	
 	public TreeWindow() {
@@ -79,14 +80,18 @@ public class TreeWindow extends JPanel{
 				if(o instanceof ClassInfo) {
 					//System.out.println("Class선택");
 					contentwindow.showCard((ClassInfo)o);
+					usewindow.showCard((ClassInfo)o);
 				}
 				else if(o instanceof MethodInfo) {
 					//System.out.println("Method선택");
 					contentwindow.showCard((MethodInfo)o);
+					//Main.window.showMethodUse();
+					usewindow.showCard((MethodInfo)o);
 				}
 				else if(o instanceof VariableInfo) {
 					//System.out.println("Variable선택");
 					contentwindow.showCard((VariableInfo)o);
+					usewindow.showCard((VariableInfo)o);
 				}
 			}
 		});

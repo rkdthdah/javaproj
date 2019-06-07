@@ -12,7 +12,8 @@ public class ViewerWindow extends JFrame {
 	private TreeWindow treePanel;
 	//private ContentWindow contentPanel;
 	static ContentWindow contentPanel = new ContentWindow();
-	private CardMethodUse use;
+	//private CardMethodUse use;
+	static UseWindow use = new UseWindow();
 	
 	
 	
@@ -23,6 +24,7 @@ public class ViewerWindow extends JFrame {
 		createMenu();
 		showTree();
 		showContent();
+		showMethodUse();
 		
 		
 		setVisible(true);
@@ -67,14 +69,19 @@ public class ViewerWindow extends JFrame {
 	}
 	
 	void showMethodUse() {
-		use = contentPanel.u;
-		use.setLocation(0,500);
+		
+		use.setLocation(5,410);
 		use.setSize(200,200);
 		add(use);
+		
 	}
 	
 	public ContentWindow getContentWindow() {
 		return contentPanel;
+	}
+	
+	public UseWindow getUseWindow() {
+		return use;
 	}
 
 }
