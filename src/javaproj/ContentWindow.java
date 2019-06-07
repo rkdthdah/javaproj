@@ -50,17 +50,59 @@ public class ContentWindow extends JFrame {
 
 public class ContentWindow extends JPanel{
 	private CardLayout card = new CardLayout();
-	
+	private CardClass c;
+	private CardMethod m;
+	public CardMethodUse u;
+	private CardVariable v;
 	
 	public ContentWindow() {
 		this.setLayout(card);
-		CardClass c = new CardClass(Main.t.classinfo[0]);
-		CardMethod m = new CardMethod(Main.t.classinfo[0].getMethod(0));
-		CardVariable v = new CardVariable(Main.t.classinfo[0].getVariable(0));
+		
+		
+		c = new CardClass(Main.t.classinfo[0]);
+		add(c, "CardClass");
+		card.show(this,  "CardMethod");
+		
+		
+		//CardClass c = new CardClass(Main.t.classinfo[0]);
+		//CardMethod m = new CardMethod(Main.t.classinfo[0].getMethod(0));
+		//CardVariable v = new CardVariable(Main.t.classinfo[0].getVariable(0));
+		
+		/*
+		c = new CardClass(Main.t.classinfo[0]);
+		m = new CardMethod(Main.t.classinfo[0].getMethod(0));
+		v = new CardVariable(Main.t.classinfo[0].getVariable(0));
 		add(c, "CardClass");
 		add(m, "CardMethod");
 		add(v, "CardVariable");
+		
+		card.show(this, "CardMethod");
+		*/
 	}
+	
+	public void showCard(Object o) {
+		if (o instanceof ClassInfo) {
+			c = new CardClass((ClassInfo)o);
+			
+			add(c, "CardClass");
+			card.show(this, "CardClass");
+			//System.out.println("showCardClass");
+		}
+		else if (o instanceof MethodInfo) {
+			m = new CardMethod((MethodInfo)o);
+			u = new CardMethodUse((MethodInfo)o);
+			//System.out.println("showCardMethod");
+			add(m, "CardMethod");
+			card.show(this, "CardMethod");
+		}
+		else if (o instanceof VariableInfo) {
+			v = new CardVariable((VariableInfo)o);
+			//System.out.println("showCardVariable");
+			add(v, "CardVariable");
+			card.show(this, "CardVariable");
+		}
+	}
+	
 }
 
 class CardClass extends JPanel {
@@ -75,7 +117,7 @@ class CardClass extends JPanel {
 		table.setRowHeight(25);
 		//getContentPane().add(new JScrollPane(table), "Center");
 		scroll = new JScrollPane(table);
-		scroll.setPreferredSize(new Dimension(580,630));
+		scroll.setPreferredSize(new Dimension(630,630));
 		this.add(scroll);
 		//add(new JScrollPane(table));
 	}
@@ -83,10 +125,18 @@ class CardClass extends JPanel {
 	class TableModel extends AbstractTableModel {
 				
 		private ArrayList<MethodInfo> method;
+		private ArrayList<VariableInfo> variable;
+		//private ArrayList<Object> every;
 		private String[] columnName = {"Name", "Type", "Access"};
 		
+		private int sizeMethod, sizeVariable;
+		
 		public TableModel(ClassInfo c) {
-			method = classinfo.getMethodList();
+			method = c.getMethodList();
+			variable = c.getVariableList();
+			
+			sizeMethod = method.size();
+			sizeVariable = variable.size();
 		}
 		
 		public int getColumnCount() {
@@ -94,7 +144,10 @@ class CardClass extends JPanel {
 		}
 		
 		public int getRowCount() {
-			return classinfo.sizeMethod();
+			return sizeMethod + sizeVariable;
+			//return sizeVariable;
+			//return classinfo.sizeMethod();
+			//return sizeMethod + sizeVariable;
 		}
 		
 		public String getColumnName(int col) {
@@ -102,7 +155,44 @@ class CardClass extends JPanel {
 		}
 		
 		public Object getValueAt(int row, int col) {
+			Object value = null;
+			
+			if (row < sizeMethod) {
+				MethodInfo method = classinfo.getMethod(row);
+				
+				switch(col) {
+				case 0:
+					value = method.getName() + "(" + method.getFactor() + ")";
+					break;
+				case 1:
+					value = method.getType();
+					break;
+				case 2:
+					value = method.getAccess();
+					break;
+				}
+			}
+			
+			else {
+				VariableInfo variable = classinfo.getVariable(row - sizeMethod);
+				
+				switch(col) {
+				case 0:
+					value = variable.getName();
+					break;
+				case 1:
+					value = variable.getType();
+					break;
+				case 2:
+					value = variable.getAccess();
+					break;
+				}
+				
+			}
+			return value;
+			/*
 			MethodInfo method = classinfo.getMethod(row);
+			VariableInfo variable = classinfo.getVariable(row - sizeMethod);
 			Object value = null;
 			
 			switch(col) {
@@ -116,7 +206,29 @@ class CardClass extends JPanel {
 				value = method.getAccess();
 				break;
 			}
+			
+			
+			//if (row < classinfo.sizeMethod()) {
+				
+			//}
+			
+			else {
+				switch(col) {
+				case 0:
+					value = variable.getName();
+					break;
+				case 1:
+					value = variable.getType();
+					break;
+				case 2:
+					value = variable.getAccess();
+					break;
+				}
+			}
+			
+			
 			return value;
+			*/
 		}
 		
 		public Class getColumnClass(int c) {
@@ -135,11 +247,28 @@ class CardMethod extends JPanel {
 	public CardMethod (MethodInfo m) {
 		methodinfo = m;
 		field = new JTextArea(30,30);
+		
 		field.append(methodinfo.getCode());
+		
 		scroll = new JScrollPane(field);
-		scroll.setPreferredSize(new Dimension(580,630));
+		scroll.setPreferredSize(new Dimension(630,630));
 		this.add(scroll);
 		//add(new JScrollPane(field));
+	}
+}
+
+//
+class CardMethodUse extends JPanel {
+	private MethodInfo methodinfo;
+	private JTextArea field;
+	
+	public CardMethodUse (MethodInfo m) {
+		methodinfo = m;
+		field = new JTextArea(30,30);
+		field.append(methodinfo.getUse());
+		//System.out.println(methodinfo.getUse());
+		field.setPreferredSize(new Dimension(200,200));
+		this.add(field);
 	}
 }
 
@@ -153,10 +282,11 @@ class CardVariable extends JPanel {
 		TableModel model = new TableModel(variableinfo);
 		table = new JTable(model);
 		table.setRowHeight(25);
+		table.getColumnModel().getColumn(1).setPreferredWidth(280);
 		//getContentPane().add(new JScrollPane(table), "Center");
 		//add(new JScrollPane(table));
 		scroll = new JScrollPane(table);
-		scroll.setPreferredSize(new Dimension(580,630));
+		scroll.setPreferredSize(new Dimension(630,630));
 		this.add(scroll);
 	}
 	
@@ -173,8 +303,8 @@ class CardVariable extends JPanel {
 		}
 		
 		public int getRowCount() {
-			return variableinfo.getMethodList().size();
-			//return 1;
+			//return variableinfo.getMethodList().size();
+			return 1;
 		}
 		
 		public String getColumnName(int col) {
@@ -182,7 +312,7 @@ class CardVariable extends JPanel {
 		}
 		
 		public Object getValueAt(int row, int col) {
-			/*
+			
 			Object value = "";	
 			
 			switch(col) {
@@ -199,9 +329,9 @@ class CardVariable extends JPanel {
 				break;
 			}
 			return value;
-			*/
 			
 			
+			/*
 			MethodInfo method = variableinfo.getMethodList().get(row);
 			Object value = null;
 			
@@ -217,7 +347,7 @@ class CardVariable extends JPanel {
 				break;
 			}
 			return value;
-			
+			*/
 		}
 		
 		public Class getColumnClass(int c) {

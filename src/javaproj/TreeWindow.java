@@ -29,6 +29,7 @@ class ClassTreeModel implements TreeModel {
 		return 0;
 	}
 	
+	
 	public int getIndexOfChild(Object parent, Object child) {
 		
 		if(child instanceof MethodInfo) {
@@ -58,33 +59,34 @@ class ClassTreeModel implements TreeModel {
 	public void valueForPathChanged(TreePath path, Object newValue) {}
 }
 
-//public class TreeWindow extends JSplitPane
+
 public class TreeWindow extends JPanel{
 	protected JTree tree;
-	//protected JTextArea display;
 	protected JScrollPane scroll;
-	//protected ContentWindow contentwindow;
-	//protected ViewerWindow viewerwindow;
+	protected ViewerWindow viewerwindow = Main.window;
+	protected ContentWindow contentwindow = viewerwindow.contentPanel;
+	
 	
 	public TreeWindow() {
-		//super(HORIZONTAL_SPLIT);
 		ClassInfo c = Main.t.classinfo[0]; 
 		ClassTreeModel model = new ClassTreeModel(c);
 		tree = new JTree(model);
-		//contentwindow = Main.window.getContentWindow();
 		
 		
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
 				Object o = e.getPath().getLastPathComponent();
 				if(o instanceof ClassInfo) {
-					
+					//System.out.println("Class선택");
+					contentwindow.showCard((ClassInfo)o);
 				}
 				else if(o instanceof MethodInfo) {
-					
+					//System.out.println("Method선택");
+					contentwindow.showCard((MethodInfo)o);
 				}
 				else if(o instanceof VariableInfo) {
-					
+					//System.out.println("Variable선택");
+					contentwindow.showCard((VariableInfo)o);
 				}
 			}
 		});
@@ -92,7 +94,7 @@ public class TreeWindow extends JPanel{
 		//add(new JScrollPane(tree));
 		//add(new JScrollPane(display));
 		scroll = new JScrollPane(tree);
-		scroll.setPreferredSize(new Dimension(290,390));
+		scroll.setPreferredSize(new Dimension(240,390));
 		this.add(scroll);
 	}
 	

@@ -27,7 +27,7 @@ public class ClassInfo {
 
 	// TreeModel에서 이용
 	public String toString() {
-		return name;
+		return name + " <class T>";
 	} 
 	
 	public ArrayList<Object> info() {
@@ -62,6 +62,11 @@ public class ClassInfo {
 		return method.get(index);
 	}
 	
+	public VariableInfo getVariable(int index) {
+		return variable.get(index);
+	}
+	
+	
 	// ClassCard에서 사용
 	public ArrayList<MethodInfo> getMethodList(){
 		return method;
@@ -71,9 +76,6 @@ public class ClassInfo {
 	}
 	//
 	
-	public VariableInfo getVariable(int index) {
-		return variable.get(index);
-	}
 	
 	public int sizeMethod() {
 		return method.size();

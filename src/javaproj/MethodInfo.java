@@ -49,6 +49,16 @@ public class MethodInfo extends CommonInfo {
 		return variable;
 	}
 	
+	// CardMethodUse에서 사용
+	
+	public String getUse() {
+		String use = "";
+		for(int i=0; i<variable.size(); i++) {
+			use += variable.get(i).getName() + "\r";
+		}
+		
+		return use;
+	}
 	
 	public void printall() {
 		System.out.println(name);
@@ -61,7 +71,10 @@ public class MethodInfo extends CommonInfo {
 
 	// TreeModel에서 이용 + public display()
 	public String toString() {
-		return name;
+		if(factor == null)
+			return name + "()";
+		else
+			return name + "(" + factor + ")";
 	} 
 
 }

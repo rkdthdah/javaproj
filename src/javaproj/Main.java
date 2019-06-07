@@ -2,7 +2,7 @@ package javaproj;
 
 public class Main {
 	static Parsing t = new Parsing();
-	
+	static ViewerWindow window;
 	
 	public static void main(String[] args) {
 		t.ParsingLine();
@@ -14,7 +14,9 @@ public class Main {
 		
 		
 		
-		ViewerWindow window = new ViewerWindow();
+		//ViewerWindow window = new ViewerWindow();
+		
+		window = new ViewerWindow();
 		
 		
 		
@@ -28,6 +30,8 @@ public class Main {
 		return t;
 	}
 	
-	
+	ViewerWindow getViewerWindow() {
+		return window;
+	}
 
 }
