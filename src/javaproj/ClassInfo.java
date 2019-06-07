@@ -49,9 +49,27 @@ public class ClassInfo {
 		return info().size();
 	}
 	
+	public int getIndexOfInfo(Object o) {
+		for(int i=0; i<sizeInfo(); i++) {
+			Object oi = getInfo(i);
+			if(oi == o)
+				return i;
+		}
+		return -1;
+	}
+	
 	public MethodInfo getMethod(int index) {
 		return method.get(index);
 	}
+	
+	// ClassCard에서 사용
+	public ArrayList<MethodInfo> getMethodList(){
+		return method;
+	}
+	public ArrayList<VariableInfo> getVariableList(){
+		return variable;
+	}
+	//
 	
 	public VariableInfo getVariable(int index) {
 		return variable.get(index);

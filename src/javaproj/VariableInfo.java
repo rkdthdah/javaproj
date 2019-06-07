@@ -20,6 +20,19 @@ public class VariableInfo extends CommonInfo {
 		System.out.println(method);
 	}
 	
+	// CardVariable에서 사용
+	public String getName() {
+		return name;
+	}
+	
+	public ArrayList<MethodInfo> getMethodList() {
+		return method;
+	}
+	
+	public int getMethodSize() {
+		return method.size();
+	}
+	
 	// TreeModel에서 이용 + public display()
 	public String toString() {
 		return name;

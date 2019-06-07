@@ -9,18 +9,25 @@ public class ViewerWindow extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menu;
 	private JMenuItem open, save, exit;
+	private TreeWindow treePanel;
+	private ContentWindow contentPanel;
 	
 	
-	ViewerWindow() {
+	
+	public ViewerWindow() {
 		setTitle("C++ Å¬·¡½º Viewer");
 		setSize(900,700);
+		setLayout(null);
 		createMenu();
+		showTree();
+		showContent();
+		
 		
 		setVisible(true);
 	}
 	
+	
 	void createMenu() {
-		
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		open = new JMenuItem("Open");
@@ -39,17 +46,26 @@ public class ViewerWindow extends JFrame {
 			}
 		});
 		menuBar.add(menu);
-		
 		setJMenuBar(menuBar);
 	}
 	
-	
-	/*
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new ViewerWindow();
-
+	void showTree() {
+		treePanel = new TreeWindow();
+		treePanel.setLocation(0,0);
+		treePanel.setSize(300,400);
+		add(treePanel);
 	}
-	*/
+	
+	void showContent() {
+		contentPanel = new ContentWindow();
+		contentPanel.setLocation(290,0);
+		contentPanel.setSize(600,700);
+		add(contentPanel);
+		
+	}
+	
+	public ContentWindow getContentWindow() {
+		return contentPanel;
+	}
 
 }

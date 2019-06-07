@@ -22,6 +22,33 @@ public class MethodInfo extends CommonInfo {
 		this.variable.add(variable);
 	}
 	
+	// CardClass에서 사용
+	public String getName() {
+		return name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getAccess() {
+		return access;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+	
+	public String getFactor() {
+		if (factor == null)
+			return "";
+		return factor;
+	}
+	
+	public ArrayList<VariableInfo> getVariableList() {
+		return variable;
+	}
+	
 	
 	public void printall() {
 		System.out.println(name);

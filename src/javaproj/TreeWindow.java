@@ -10,7 +10,7 @@ class ClassTreeModel implements TreeModel {
 	protected ClassInfo classinfo;
 	
 	public ClassTreeModel(ClassInfo c) {
-		this.classinfo = c;
+		classinfo = c;
 	}
 	
 	public Object getChild(Object parent, int index) {
@@ -30,13 +30,14 @@ class ClassTreeModel implements TreeModel {
 	}
 	
 	public int getIndexOfChild(Object parent, Object child) {
+		
 		if(child instanceof MethodInfo) {
 			ClassInfo c = (ClassInfo) parent;
 			return c.getIndexOfMethod((MethodInfo)child);
 		}
 		else if(child instanceof VariableInfo) {
 			ClassInfo c = (ClassInfo) parent;
-			return c.getIndexOfVariable((VariableInfo)child);
+			return c.sizeMethod() + c.getIndexOfVariable((VariableInfo)child);
 		}
 		return -1;
 	}
@@ -52,59 +53,62 @@ class ClassTreeModel implements TreeModel {
 		return true;
 	}
 	
-	public void addTreeModelListener(TreeModelListener I) {
-		
-	}
-	
-	public void removeTreeModelListener(TreeModelListener I) {
-		
-	}
-	
-	public void valueForPathChanged(TreePath path, Object newValue) {
-		
-	}
+	public void addTreeModelListener(TreeModelListener I) {}
+	public void removeTreeModelListener(TreeModelListener I) {}
+	public void valueForPathChanged(TreePath path, Object newValue) {}
 }
 
-
-public class TreeWindow extends JSplitPane{
+//public class TreeWindow extends JSplitPane
+public class TreeWindow extends JPanel{
 	protected JTree tree;
-	// protected CardLayout card;
-	protected JTextArea display;
+	//protected JTextArea display;
+	protected JScrollPane scroll;
+	//protected ContentWindow contentwindow;
+	//protected ViewerWindow viewerwindow;
 	
 	public TreeWindow() {
-		super(HORIZONTAL_SPLIT);
-		ClassInfo c = (ClassInfo) Main.t.getClassInfo(); 
+		//super(HORIZONTAL_SPLIT);
+		ClassInfo c = Main.t.classinfo[0]; 
 		ClassTreeModel model = new ClassTreeModel(c);
 		tree = new JTree(model);
+		//contentwindow = Main.window.getContentWindow();
+		
 		
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
 				Object o = e.getPath().getLastPathComponent();
-				if(o instanceof MethodInfo) {
-					String met = "MethodInfo입니다\n";
-					display.append(met);
+				if(o instanceof ClassInfo) {
+					
+				}
+				else if(o instanceof MethodInfo) {
+					
 				}
 				else if(o instanceof VariableInfo) {
-					String var = "VariableInfo입니다.\n";
-					display.append(var);
+					
 				}
 			}
 		});
-		display = new JTextArea(20,20);
-		add(new JScrollPane(tree));
-		add(new JScrollPane(display));
+		//display = new JTextArea(20,20);
+		//add(new JScrollPane(tree));
+		//add(new JScrollPane(display));
+		scroll = new JScrollPane(tree);
+		scroll.setPreferredSize(new Dimension(290,390));
+		this.add(scroll);
 	}
 	
-	
+	/*
 	public void gui() {
+		
 		JFrame f = new JFrame("Tree Model Example");
 		TreeWindow tree = new TreeWindow();
 		f.getContentPane().add("Center", tree);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(400,300);
 		f.setVisible(true);
+		
+		
 	}
-	
+	*/
 
 }
 
