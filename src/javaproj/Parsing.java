@@ -240,7 +240,7 @@ public class Parsing {
 			
 			if (activefactor) {
 				int loc = FindWord("int");
-				if (loc != -1) {
+				if ((loc != -1)&&(FindWord("*") == -1)) {
 					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc + 1).replaceAll(";", ""), "int", access);
 					classinfo[classcnt - 1].setVariable(arrayofvariable[variablecnt]);
 					//System.out.println("variablecnt: " + variablecnt);
@@ -252,8 +252,8 @@ public class Parsing {
 				
 				loc = FindWord("*");
 				if (loc != -1) {
-					variablecnt -= 1;
 					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc).substring(strloc + 1).replaceAll(";", ""), "int *", access);
+					classinfo[classcnt - 1].setVariable(arrayofvariable[variablecnt]);
 					//System.out.println("variablecnt: " + variablecnt);
 					//System.out.println(arrayofvariable[variablecnt].name);
 					//System.out.println(arrayofvariable[variablecnt].type);
