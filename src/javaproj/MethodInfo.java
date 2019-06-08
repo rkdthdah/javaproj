@@ -69,7 +69,7 @@ public class MethodInfo extends CommonInfo {
 		System.out.println(variable);
 	}
 
-	// TreeModel에서 이용 + public display()
+	// TreeModel에서 이용 
 	public String toString() {
 		if(factor == null)
 			return name + "()";

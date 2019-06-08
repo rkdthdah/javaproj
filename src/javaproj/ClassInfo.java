@@ -43,6 +43,14 @@ public class ClassInfo {
 	
 	public Object getInfo(int index) {
 		return info().get(index);
+		/*
+		if(index<method.size()) {
+			return ((MethodInfo)info().get(index));
+		}
+		else {
+			return ((VariableInfo)info().get(index));
+		}
+		*/
 	}
 	
 	public int sizeInfo() {

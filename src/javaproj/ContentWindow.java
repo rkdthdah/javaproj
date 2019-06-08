@@ -83,7 +83,6 @@ public class ContentWindow extends JPanel{
 	public void showCard(Object o) {
 		if (o instanceof ClassInfo) {
 			c = new CardClass((ClassInfo)o);
-			
 			add(c, "CardClass");
 			card.show(this, "CardClass");
 			//System.out.println("showCardClass");

@@ -27,8 +27,8 @@ public class UseWindow extends JPanel {
 			card.show(this,  "CardMethodUse");
 		}
 		else {
-			nul = new CardNull();
-			add(nul, "CardNull");
+			//nul = new CardNull();
+			//add(nul, "CardNull");
 			card.show(this, "CardNull");
 		}
 	}
