@@ -75,7 +75,7 @@ public class ViewerWindow extends JFrame {
 		add(use);
 		
 	}
-	
+	/*
 	public ContentWindow getContentWindow() {
 		return contentPanel;
 	}
@@ -83,5 +83,5 @@ public class ViewerWindow extends JFrame {
 	public UseWindow getUseWindow() {
 		return use;
 	}
-
+	*/
 }

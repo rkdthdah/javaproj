@@ -48,7 +48,7 @@ public class ContentWindow extends JFrame {
 }
 */
 
-public class ContentWindow extends JPanel{
+public class ContentWindow extends JPanel {
 	private CardLayout card = new CardLayout();
 	private CardClass c;
 	private CardMethod m;
