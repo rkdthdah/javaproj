@@ -339,7 +339,7 @@ public class Parsing {
 			
 			if (bracecnt == -1) {
 				//System.out.println("methodloc: " + methodloc);
-				arrayofmethod[methodloc].setCode(code);
+				arrayofmethod[methodloc].setCode(code.replaceAll("\r", "\n"));
 				FindVariable(code, methodloc);
 				//System.out.println(code);
 				break;
