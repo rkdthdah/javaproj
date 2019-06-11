@@ -3,6 +3,7 @@ package javaproj;
 import java.util.*;
 
 public class VariableInfo extends CommonInfo {
+	
 	private ArrayList<MethodInfo> method = new ArrayList<MethodInfo>(); // 사용되는 메소드 (객체)
 	
 	public VariableInfo(String name, String type, String access) {
@@ -11,13 +12,6 @@ public class VariableInfo extends CommonInfo {
 	
 	public void setMethod(MethodInfo method) {
 		this.method.add(method);
-	}
-	
-	public void printall() {
-		System.out.println(name);
-		System.out.println(type);
-		System.out.println(access);
-		System.out.println(method);
 	}
 	
 	// CardVariable에서 사용
@@ -33,10 +27,17 @@ public class VariableInfo extends CommonInfo {
 		return method.size();
 	}
 	
-	// TreeModel에서 이용 
+	// TreeModel에서 사용 
 	public String toString() {
 		return name + " : " + type;
 	}
-	
+
+	// Console에 출력
+	public void printall() {
+		System.out.println(name);
+		System.out.println(type);
+		System.out.println(access);
+		System.out.println(method);
+	}
 
 }

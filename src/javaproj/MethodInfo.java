@@ -3,6 +3,7 @@ package javaproj;
 import java.util.*;
 
 public class MethodInfo extends CommonInfo {
+	
 	private String code, factor; // 소스코드, 인자정보
 	private ArrayList<VariableInfo> variable = new ArrayList<VariableInfo>(); // 멤버변수 (객체)
 	
@@ -49,17 +50,24 @@ public class MethodInfo extends CommonInfo {
 		return variable;
 	}
 	
-	// CardMethodUse에서 사용
-	
+	// CardMethodUse에서 사용	
 	public String getUse() {
 		String use = "  ";
 		for(int i=0; i<variable.size(); i++) {
 			use += variable.get(i).getName() + "\n  ";
 		}
-		
 		return use;
 	}
-	
+
+	// TreeModel에서 사용 
+	public String toString() {
+		if(factor == null)
+			return name + "()";
+		else
+			return name + "(" + factor + ")";
+	} 
+
+	// Console에 출력
 	public void printall() {
 		System.out.println(name);
 		System.out.println(type);
@@ -68,13 +76,5 @@ public class MethodInfo extends CommonInfo {
 		System.out.println(code);
 		System.out.println(variable);
 	}
-
-	// TreeModel에서 이용 
-	public String toString() {
-		if(factor == null)
-			return name + "()";
-		else
-			return name + "(" + factor + ")";
-	} 
-
+	
 }

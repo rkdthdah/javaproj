@@ -2,6 +2,7 @@ package javaproj;
 import java.util.*;
 
 public class ClassInfo {
+	
 	private String name; // 클래스 이름
 	private ArrayList<MethodInfo> method = new ArrayList<MethodInfo>(); // 메소드
 	private ArrayList<VariableInfo> variable = new ArrayList<VariableInfo>(); // 변수
@@ -17,15 +18,8 @@ public class ClassInfo {
 	public void setVariable(VariableInfo variable) {
 		this.variable.add(variable);
 	}
-	
-	
-	public void printall() {
-		System.out.println(name);
-		System.out.println(method);
-		System.out.println(variable);
-	}
 
-	// TreeModel에서 이용
+	// TreeModel에서 사용
 	public String toString() {
 		return name + " <class T>";
 	} 
@@ -43,14 +37,6 @@ public class ClassInfo {
 	
 	public Object getInfo(int index) {
 		return info().get(index);
-		/*
-		if(index<method.size()) {
-			return ((MethodInfo)info().get(index));
-		}
-		else {
-			return ((VariableInfo)info().get(index));
-		}
-		*/
 	}
 	
 	public int sizeInfo() {
@@ -66,6 +52,7 @@ public class ClassInfo {
 		return -1;
 	}
 	
+	// getters
 	public MethodInfo getMethod(int index) {
 		return method.get(index);
 	}
@@ -73,17 +60,6 @@ public class ClassInfo {
 	public VariableInfo getVariable(int index) {
 		return variable.get(index);
 	}
-	
-	
-	// ClassCard에서 사용
-	public ArrayList<MethodInfo> getMethodList(){
-		return method;
-	}
-	public ArrayList<VariableInfo> getVariableList(){
-		return variable;
-	}
-	//
-	
 	
 	public int sizeMethod() {
 		return method.size();
@@ -110,5 +86,21 @@ public class ClassInfo {
 		}
 		return -1;
 	}
+	
+	// ClassCard에서 사용
+	public ArrayList<MethodInfo> getMethodList(){
+		return method;
+	}
+	
+	public ArrayList<VariableInfo> getVariableList(){
+		return variable;
+	}
 
+	// Console에 출력
+	public void printall() {
+		System.out.println(name);
+		System.out.println(method);
+		System.out.println(variable);
+	}
+	
 }
