@@ -25,7 +25,7 @@ public class Main {
 		
 	}
 	
-	
+	/*
 	Parsing getParsing () {
 		return t;
 	}
@@ -33,5 +33,6 @@ public class Main {
 	ViewerWindow getViewerWindow() {
 		return window;
 	}
+	*/
 
 }

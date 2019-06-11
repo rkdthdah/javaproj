@@ -20,13 +20,12 @@ public class ViewerWindow extends JFrame {
 	public ViewerWindow() {
 		setTitle("C++ Å¬·¡½º Viewer");
 		setSize(900,700);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		createMenu();
 		showTree();
 		showContent();
-		showMethodUse();
-		
-		
+		showMethodUse();	
 		setVisible(true);
 	}
 	
