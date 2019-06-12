@@ -44,7 +44,7 @@ public class Parsing {
 
 			int loc = FindWord("class");  // class명을 감지하면 ClassInfo 객체 생성 및 해당 class 내부 파싱 시작
 			if (loc != -1) {
-				classinfo[classcnt] = new ClassInfo(line.get(loc + 1));
+				classinfo[classcnt] = new ClassInfo(line.get(loc + 1)); // classinfo 객체생성하여 클래스 정보 저장
 				classcnt += 1;
 				//System.out.println(classinfo[0].name);
 				ClassParsing();  // class 내부 파싱
@@ -217,6 +217,7 @@ public class Parsing {
 					activefactor = false;
 					//System.out.println(activefactor);
 				}
+				// 
 				arrayofmethod[methodcnt] = new MethodInfo(methodname, methodtype, access);
 				if (bracecnt >= 1) {
 					int startloc = FindWord("{");
@@ -229,7 +230,7 @@ public class Parsing {
 					leftmethodcode.push(code);
 					}
 				arrayofmethod[methodcnt].setFactor(factor);
-				classinfo[classcnt - 1].setMethod(arrayofmethod[methodcnt]);
+				classinfo[classcnt - 1].setMethod(arrayofmethod[methodcnt]); // methodinfo 객체 생성 및 메소드 정보 저장
 				//System.out.println("methodcnt: " + methodcnt);
 				//System.out.println(arrayofmethod[methodcnt].name);
 				//System.out.println(arrayofmethod[methodcnt].type);
@@ -238,11 +239,12 @@ public class Parsing {
 				methodcnt += 1;
 			}
 			
+			// 줄에 인자 int가 이미 존재하지 않을때 변수 타입 int 감지
 			if (activefactor) {
 				int loc = FindWord("int");
 				if ((loc != -1)&&(FindWord("*") == -1)) {
-					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc + 1).replaceAll(";", ""), "int", access);
-					classinfo[classcnt - 1].setVariable(arrayofvariable[variablecnt]);
+					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc + 1).replaceAll(";", ""), "int", access); // variableinfo 객체 생성 및 변수정보 저장
+					classinfo[classcnt - 1].setVariable(arrayofvariable[variablecnt]); // 감지한 변수를 classinfo의 arrayofvariable에 업데이트
 					//System.out.println("variablecnt: " + variablecnt);
 					//System.out.println(arrayofvariable[variablecnt].name);
 					//System.out.println(arrayofvariable[variablecnt].type);
@@ -250,6 +252,7 @@ public class Parsing {
 					variablecnt += 1;
 				}
 				
+				// 포인터 형식 변수를 감지하면 int형 변수 객체에 정보를 덮어씌움
 				loc = FindWord("*");
 				if (loc != -1) {
 					arrayofvariable[variablecnt] = new VariableInfo(line.get(loc).substring(strloc + 1).replaceAll(";", ""), "int *", access);
@@ -262,6 +265,7 @@ public class Parsing {
 				}
 			}
 			
+			// 중괄호 닫힘을 감지하여 class가 닫힘을 감지
 			if (FindWord("}") != -1) {
 				bracecnt -= 1;
 				//System.out.println("bracecut: " + bracecnt);
@@ -269,6 +273,8 @@ public class Parsing {
 			}
 			BringToken();
 		}
+		
+		// class중간에 내용이 전부 선언된 method의 코드정보를 업데이트
 		while (true) {
 			if (leftmethodloc.isEmpty()) break;
 			FindVariable(leftmethodcode.pop(), leftmethodloc.pop());
@@ -276,12 +282,13 @@ public class Parsing {
 		
 	}
 
-		
+	// 메소드 부분 파싱 메소드
 	void MethodParsing() {
 		//System.out.println("methodparsing");
 		int bracecnt = -1;
 		int methodloc = 20;
 		while (true) {
+			// 중괄호를 감지하여 메소드의 시작 혹은 끝나는 위치를 감지
 			int openloc;
 			int oploc = -1;
 			openloc = FindWord("{");
@@ -303,6 +310,7 @@ public class Parsing {
 				//System.out.println("bracecnt: " + bracecnt);
 			}
 			
+			// 메소드 이름 감지하여 arrayofmethod에서의 해당 메소드 위치를 찾음
 			String name = null;
 			int nameoploc = FindWord("::");
 			int nameoloc;
@@ -324,6 +332,7 @@ public class Parsing {
 			
 			//System.out.println(bracecnt);
 			
+			// 메소드 내부의 코드를 string code에 붙임
 			if ((bracecnt != -1)&&notyet) {
 				//System.out.println("notyet");
 				CodeFor(0, closeloc);
@@ -336,7 +345,7 @@ public class Parsing {
 				CodeMaking(-1, -1, -1, -1);
 			}
 			
-			
+			// 메소드의 끝까지 코드가 만들어지면 메소드인포에 코드 업데이트 및 포함된 변수 업데이트
 			if (bracecnt == -1) {
 				//System.out.println("methodloc: " + methodloc);
 				arrayofmethod[methodloc].setCode(code.replaceAll("\r", "\n"));

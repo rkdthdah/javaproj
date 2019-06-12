@@ -1,6 +1,7 @@
 package javaproj;
 import java.io.*;
 
+// 파일 입력하여 입력된 버퍼 반환
 public class ReadFileData {
 
 	StringBuffer toReadFileData() {
