@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+// GUI의 최상위 컨테이너를 생성하는 클래스 
 public class ViewerWindow extends JFrame {
 	
 	private JMenuBar menuBar;
@@ -13,7 +14,7 @@ public class ViewerWindow extends JFrame {
 	static ContentWindow contentPanel = new ContentWindow();
 	static UseWindow use = new UseWindow();
 	
-	
+	// ViewerWindow(JFrame) 생성자
 	public ViewerWindow() {
 		setTitle("C++ 클래스 Viewer");
 		setSize(900,700);
@@ -26,6 +27,7 @@ public class ViewerWindow extends JFrame {
 		setVisible(true);
 	}
 	
+	// 프레임에 메뉴를 설정하는 메소드
 	void createMenu() {
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
@@ -48,6 +50,7 @@ public class ViewerWindow extends JFrame {
 		setJMenuBar(menuBar);
 	}
 	
+	// 트리를 보여주는 패널을 프레임에 추가하는 메소드
 	void showTree() {
 		treePanel = new TreeWindow();
 		treePanel.setLocation(0,0);
@@ -55,15 +58,17 @@ public class ViewerWindow extends JFrame {
 		add(treePanel);
 	}
 	
+	// 내용을 보여주는 패널을 프레임에 추가하는 메소드
 	void showContent() {
 		contentPanel.setLocation(240,0);
 		contentPanel.setSize(650,700);
 		add(contentPanel);
 	}
 	
+	// 메소드가 사용하는 변수의 목록을 출력하는 패널을 프레임에 추가하는 메소드
 	void showMethodUse() {
-		use.setLocation(5,410);
-		use.setSize(200,200);
+		use.setLocation(8,410);
+		use.setSize(233,200);
 		add(use);	
 	}
 	

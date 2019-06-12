@@ -1,5 +1,6 @@
 package javaproj;
 
+// Stack.h의 메소드와 변수의 공통된 정보를 저장하는 클래스
 public class CommonInfo {
 	
 	protected String name, type, access; // 이름, 반환형/자료형, 접근권한
@@ -10,6 +11,7 @@ public class CommonInfo {
 		this.access = access;
 	}
 	
+	// getters
 	public String getName() {
 		return name;
 	}

@@ -2,15 +2,17 @@ package javaproj;
 
 import java.util.*;
 
+// Stack.h의 메소드에 관한 정보를 저장하는 클래스
 public class MethodInfo extends CommonInfo {
 	
 	private String code, factor; // 소스코드, 인자정보
-	private ArrayList<VariableInfo> variable = new ArrayList<VariableInfo>(); // 멤버변수 (객체)
+	private ArrayList<VariableInfo> variable = new ArrayList<VariableInfo>(); // 멤버변수 (ArrayList)
 	
 	public MethodInfo(String name, String type, String access) {
 		super(name, type, access);
 	}
 	
+	// setters
 	public void setCode(String code) {
 		this.code = code;
 	}

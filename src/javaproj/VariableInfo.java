@@ -2,19 +2,21 @@ package javaproj;
 
 import java.util.*;
 
+// Stack.h의 변수에 관한 정보를 저장하는 클래스
 public class VariableInfo extends CommonInfo {
 	
-	private ArrayList<MethodInfo> method = new ArrayList<MethodInfo>(); // 사용되는 메소드 (객체)
+	private ArrayList<MethodInfo> method = new ArrayList<MethodInfo>(); // 사용되는 메소드 (ArrayList)
 	
 	public VariableInfo(String name, String type, String access) {
 		super(name, type, access);
 	}
 	
+	// setter
 	public void setMethod(MethodInfo method) {
 		this.method.add(method);
 	}
 	
-	// CardVariable에서 사용
+	// CardClass에서 사용
 	public String getName() {
 		return name;
 	}
