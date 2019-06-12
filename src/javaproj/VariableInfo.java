@@ -29,7 +29,7 @@ public class VariableInfo extends CommonInfo {
 		return method.size();
 	}
 	
-	// TreeModel에서 사용 
+	// ClassTreeModel에서 사용 
 	public String toString() {
 		return name + " : " + type;
 	}

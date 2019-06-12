@@ -61,7 +61,7 @@ public class MethodInfo extends CommonInfo {
 		return use;
 	}
 
-	// TreeModel에서 사용 
+	// ClassTreeModel에서 사용 
 	public String toString() {
 		if(factor == null)
 			return name + "()";

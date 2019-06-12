@@ -94,7 +94,7 @@ public class ClassInfo {
 		return -1;
 	}
 
-	// TreeModel에서 사용
+	// ClassTreeModel에서 사용
 	public String toString() {
 		return name + " <class T>";
 	} 
